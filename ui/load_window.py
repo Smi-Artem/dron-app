@@ -27,7 +27,7 @@ class LoadWindow(QMainWindow):
 
         self.setWindowTitle("Окно ожидания")
         self.setWindowIcon(QIcon('resources/logo.png'))
-        self.setFixedSize(900, 600) ###Нужен размер полноэкранный
+        self.setFixedSize(900, 600)
 
     def create_widgets(self):
 
@@ -124,7 +124,6 @@ class LoadWindow(QMainWindow):
 
 
     # find arduino
-### Нужно реализовать чтобы поиск порта был цикличным, проверялся пока не найдет. Сейчас он один раз проходит если не нашел то анлак
     def scan_ports(self):
 
         port = ser_meneger.find_adr()
@@ -154,42 +153,4 @@ class LoadWindow(QMainWindow):
 
 
 
-
-
-
-
-'''  def __init__(self):
-        super().__init__() #наследование класса qt
-        self.setWindowTitle("Окно Загрузки")
-        self.label = QLabel("searth ard")
-        self.status = QLabel("...")
-        layout = QVBoxLayout() # сортирует по вертикали по столбику ### переменная
-        layout.addWidget(self.label)
-        layout.addWidget(self.status)
-
-        container = QWidget()
-        container.setLayout(layout) ### setLayout
-        self.setCentralWidget(container) #глаыный контейнер
-
-        self.timer = QTimer() #таймер в переменоной timer
-        self.timer.timeout.connect(self.scan) ###вызов scan()
-        self.timer.start(1000) ###
-
-
-    def scan(self):
-
-        port = ser_meneger.find_adr()
-        if not port:
-            self.status.setText("Not find")
-            return
-
-        self.status.setText(f"connect:{port}")
-        self.timer.stop()
-        self.open_main() #вызов open_main()
-
-    def open_main(self):
-
-        self.main = MainWindow()
-        self.main.show()
-        self.close()'''
 

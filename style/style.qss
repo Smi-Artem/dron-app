@@ -74,7 +74,7 @@ QPushButton:pressed {
     background-color: #101215;
 }
 
-/* КНОПКИ ПОДДЕРЖКИ */
+/* КНОПКИ ПОДДЕРЖКИ
 QPushButton#support_button {
     background-color: #171a1f;
     color: white;
@@ -84,7 +84,8 @@ QPushButton#support_button {
 
 QPushButton#support_button:hover {
     background-color: #101215;
-}
+}*/
+
 
 /* КНОПКИ УПРАВЛЕНИЯ ДРОНОМ */
 QPushButton#controlButton {
@@ -103,29 +104,8 @@ QPushButton#controlButton:checked {
     font-weight: bold;
 }
 
-/* АВАРИЙНАЯ КНОПКА */
-QPushButton#stopButton {
-    background-color: #8b0000;
-    color: white;
-    border-radius: 10px;
-    font-weight: bold;
-}
 
-QPushButton#stopButton:hover {
-    background-color: #c00000;
-}
 
-/* КНОПКА ВЗЛЕТА */
-QPushButton#takeoffButton {
-    background-color: #007a45;
-    color: white;
-    border-radius: 10px;
-    font-weight: bold;
-}
-
-QPushButton#takeoffButton:hover {
-    background-color: #00a85a;
-}
 
 /* ПОЛЯ ВВОДА */
 QLineEdit {
@@ -177,7 +157,7 @@ QListWidget::item:selected {
     background-color: #30343b;
 }
 
-/* ПРОГРЕСС БАР (БАТАРЕЯ) - ИСПРАВЛЕНО # */
+/* ПРОГРЕСС БАР (БАТАРЕЯ) - исправил # */
 QProgressBar {
     background-color: #00aa66; 
     color: white;

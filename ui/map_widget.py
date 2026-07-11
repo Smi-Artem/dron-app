@@ -4,11 +4,9 @@ from PySide6.QtCore import QUrl
 class map_general(QWebEngineView):
     def __init__(self, lat=55.355198, lon=86.086847, zoom=15):
         super().__init__()
-
         self.lat = lat
         self.lon = lon
         self.zoom = zoom
-
         self._load_map()
 
     def _load_map(self):
@@ -18,10 +16,8 @@ class map_general(QWebEngineView):
         <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-            <link rel="stylesheet"
-                  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-
+            <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+            <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet"/>
             <style>
                 html, body, #map {{
                     width: 100%;
@@ -31,30 +27,48 @@ class map_general(QWebEngineView):
                 }}
             </style>
         </head>
-
         <body>
             <div id="map"></div>
-
-            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
             <script>
-                var map = L.map('map').setView([{self.lat}, {self.lon}], {self.zoom});
+                var map = new maplibregl.Map({{
+                    container: 'map',
+                    style: {{
+                        version: 8,
+                        sources: {{
+                            osm: {{
+                                type: 'raster',
+                                tiles: ['https://tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png'],
+                                tileSize: 256,
+                                attribution: '&copy; OpenStreetMap contributors'
+                            }}
+                        }},
+                        layers: [
+                            {{
+                                id: 'osm-layer',
+                                type: 'raster',
+                                source: 'osm',
+                                minzoom: 0,
+                                maxzoom: 19
+                            }}
+                        ]
+                    }},
+                    center: [{self.lon}, {self.lat}],
+                    zoom: {self.zoom}
+                }});
 
-                L.tileLayer('https://tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
-                    maxZoom: 19,
-                    attribution: 'OpenStreetMap contributors'
-                }}).addTo(map);
+                map.addControl(new maplibregl.NavigationControl());
 
-                L.marker([{self.lat}, {self.lon}]).addTo(map)
-                    .bindPopup("Вы здесь")
-                    .openPopup();
+                new maplibregl.Marker()
+                    .setLngLat([{self.lon}, {self.lat}])
+                    .setPopup(new maplibregl.Popup().setHTML("Вы здесь"))
+                    .addTo(map)
+                    .togglePopup();
 
-                setTimeout(function() {{
-                    map.invalidateSize();
-                }}, 300);
+                map.on('load', function() {{
+                    map.resize();
+                }});
             </script>
         </body>
         </html>
         """
-
         self.setHtml(html_content, QUrl("https://tile.openstreetmap.org/"))
