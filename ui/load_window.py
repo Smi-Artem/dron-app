@@ -49,7 +49,7 @@ class LoadWindow(QMainWindow):
 
         # Заголовок
 
-        self.title = QLabel("Dron station")
+        self.title = QLabel("SmArtSeeker")
         self.title.setAlignment(Qt.AlignCenter) ### ???
         self.title.setStyleSheet("""
             font-size:24px;
